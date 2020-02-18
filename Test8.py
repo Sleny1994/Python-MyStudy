@@ -5,14 +5,12 @@
 #     sum = x + y
 #     print(sum)
 #     # return sum
-
 # add(3, 5)
 
 
 
 # 2.写函数，用户传入修改的文件名，与要修改的内容，执行函数，完成整个文件的批量修改操作
 # import os
-
 # def mod(filename, old_str, new_str):
 #     tmp_file = "tmp_txt"
 #     f = open(filename, "r+")
@@ -26,7 +24,6 @@
 #     f_new.close()
 #     os.replace(tmp_file, filename)
 #     print("修改成功")
-
 # mod("test", "h", "H")
 
 
@@ -37,7 +34,6 @@
 #         print("该对象内有空内容！")
 #     else:
 #         print(args)
-
 # check_isempty((1,2),{0,1,2,3},"str",[])
 # check_isempty((1,2),{0,1,2,3},"str")
 
@@ -52,8 +48,7 @@
 #             value = value[:2]
 #         new_dic = {key : value}
 #         dic.update(new_dic)
-#     return print(dic)
-    
+#     return print(dic)  
 # dic = {"1":"He", "2":[1,2,3,4,5], "3":"String"}
 # func(dic)
 
@@ -66,7 +61,6 @@
 #         print("I'm inside.")
 #         return 0
 #     return inner
-
 # outer = outer()
 # print(outer)
 # print(outer())
@@ -100,7 +94,6 @@
 #     value2 = min
 #     dict = {key1:value1, key2:value2}
 #     print(dict)
-
 # max_min(8,1,2,5,3,7)
 
 
@@ -128,14 +121,12 @@
 #         _area = 3.14 * (r ** 2)
 #         print(_area)
 #         return cir_area
-
 #     if "长方形" in args:
 #         rec_area()
 #     elif "正方形" in args:
 #         squ_area()
 #     else:
 #         cir_area()
-
 # area('圆形', 5)
 # area('正方形', 5)
 # area('长方形', 2, 3)
@@ -170,6 +161,28 @@
 #    根据指令向文件输出日志
 #    根据指令同时向文件&屏幕输出日志
 #    以上日志格式如下
+#    2017-10-19 22:07:38 [1] test log db backup 3
+#    2017-10-19 22:07:40 [2] user alex login success
+#注意：其中[1],[2]是指自日志方法第几次调用，每调用一次输出一条日志
+# import time
+# def logger(filename, channel):
+#     """
+#     日志方法
+#     :param filename: log filename
+#     :param channel: 输出的目的地，屏幕(terminal)，文件(file)，屏幕+文件(both)
+#     :return:
+#     """
+#     while True:
+#         count = 0
+#         if channel == 'terminal':
+#             count += 1
+#             output = yield
+#             print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())) + ' [' + str(count) + '] ' + output)
+#         elif channel == 'file':
+#         elif channel == 'both':
+# log_obj = logger("web.log", "terminal")
+# log_obj.__next__()
+# log_obj.send('user alex login success')
 
 
 
@@ -181,9 +194,7 @@
 #         s = s + '_sb'
 #         new_name.append(s)
 #     print(new_name)
-
 # func()
-
 # name = ['alex','wupeiqi','yuanhao','nezha']
 # new_name = []
 # for i in map(lambda name : str(name) + '_sb', name):
@@ -197,7 +208,6 @@
 # new_list = []
 # def is_o(n):
 #     return n % 2 == 0
-
 # for new_num in filter(is_o, num):
 #     new_list.append(new_num)
 # print(new_list)
@@ -221,7 +231,6 @@
 #         if dic['price'] > 100:
 #             print(dic)
 # func()
-
 # s = filter(lambda dic : dic['price'] > 100, portfolio)
 # for s in s:
 #     print(s)
@@ -238,8 +247,23 @@
 #     new_li.append(lines)
 # print(new_li)
 
-# 18.有列表 li = [‘alex’, ‘egon’, ‘smith’, ‘pizza’, ‘alen’], 请以列表中每个元素的第二个字母倒序排序；
-# li = ['alex', 'egon', 'smith', 'pizza', 'alen']
+
+
+# 18.有列表 li = [‘alex’, ‘egon’, ‘smith’, ‘pizza’, ‘axen’], 请以列表中每个元素的第二个字母倒序排序；
+# li = ['alex', 'egon', 'smith', 'pizza', 'axen']
+# new_li = []
+# new3_li = []
+# for i in li:
+#     li_two = map(ord, i[1])
+#     for n_i in li_two:
+#         new_li.append(n_i)
+# new2_li = new_li.copy()
+# # print(new2_li)
+# new_li.sort(reverse=True)
+# # print(new_li)
+# for j in new_li:
+#     new3_li.append(li[new2_li.index(j)])
+# print(new3_li)
 
 
 
@@ -248,7 +272,84 @@
 # 黄鹤一去不复返，白云千载空悠悠。
 # 晴川历历汉阳树，芳草萋萋鹦鹉洲。
 # 日暮乡关何处是？烟波江上使人愁。
+# import os
+# file = "poetry.txt"
+# f = open(file, "r+", encoding="utf-8")
+# new_file = "tmp"
+# f_new = open(new_file, "w", encoding="utf-8")
+# count = 0
+# for count in range(0, 4):
+#     new_line = f.readline()
+#     count += 1
+#     if count == 3:
+#         continue
+#     else:
+#         f_new.write(new_line)
+# f.close()
+# f_new.close()
+# os.replace(new_file, file)
 
 
 
-# 20.
+# 20.有名为username.txt的文件，其内容格式如下，写一个程序，判断该文件中是否存在”alex”, 
+# 如果没有，则将字符串”alex”添加到该文件末尾，否则提示用户该用户已存在；
+# pizza alex egon
+# def check_name(user_name):
+#     filename = "username.txt"
+#     f = open(filename, "r")
+#     count = 0
+#     for lines in f:
+#         new_lines = lines.strip().split()
+#         if user_name in new_lines:
+#             print("该用户已存在。")
+#             count += 1
+#             break
+#     if count == 0:
+#         f = open(filename, "a")
+#         f.write(user_name)
+#         f.close()
+#         print("该用户已添加。")
+#     f.close()
+# check_name("aaa")
+        
+
+
+
+# 21.有名为user_info.txt的文件，其内容格式如下，写一个程序，删除id为100003的行； 将id为100002的用户名修改为alex li；
+# pizza,100001
+# alex, 100002
+# egon, 100003
+# import os
+# def func():
+#     filename = "user_info.txt"
+#     tmp_file = "tmp_file"
+#     f = open(filename, "r+")
+#     f_new = open(tmp_file, "w")
+#     for lines in f:
+#         if '100003' in lines:
+#             continue
+#         f_new.write(lines)
+#     f.close()
+#     f_new.close()
+#     os.replace(tmp_file, filename)
+#     f = open(filename, "r+")
+#     f_new = open(tmp_file, "w")
+#     for new_lines in f:
+#         if '100002' in new_lines:
+#             new_lines = new_lines.replace('alex', 'alex li')
+#         f_new.write(new_lines)
+#     f.close()
+#     f_new.close()
+#     os.replace(tmp_file, filename)
+# func()
+
+# 22.写一个计算每个程序执行时间的装饰器；
+
+
+
+# 23.lambda是什么？请说说你曾在什么场景下使用lambda？
+# 匿名函数，可以在map() filter()函数下使用
+
+
+
+# 24.写一个摇骰子游戏，要求用户压大小，赔率一赔一。要求：三个骰子，每个骰子的值从1-6，摇大小，每次打印摇出来3个骰子的值。
