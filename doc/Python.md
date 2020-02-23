@@ -434,3 +434,32 @@ class NamedList(list):
 
 a_list = NamedList("Hello")
 # a_list拥有list的所有功能，且还多了name参数
+```
+
+---
+
+## Web开发
+
+### 定义
+
+- CGI（Common Gateway Interface），通用网关接口
+- MVC（Model View Controller），遵循模式-视图-控制器模式
+- webapp下一般包含有文件夹（cgi-bin、data、images、templates），index.html，favicon.ico等不适合放在子文件夹下的文件
+- Python可以提供自己的Web服务器，包含在http.server库模块中
+- 用Python构建Web服务器必须有下列这五行代码
+
+```Python
+from http.server import HTTPServer, CGIHTTPRequestHandler # 导入HTTP服务器和CGI模块
+
+port = 8080 # 指定端口
+httpd = HTTPServer(('', port), CGIHTTPRequestHandle) # 创建一个HTTP服务器
+print("Starting simple_httpd on port: " + str(httpd.server_port)) # 显示一个友好消息
+httpd.server_forever() # 启动服务器
+```
+
+- 在不同操作系统上运行WebApp有不同的前期操作需求
+  - Windows，无需额外操作
+  - 类Unix
+    1. 使用chmod+x命令设置CGI的可执行权限
+    2. 在程序代码的最上方添加 #! /usr/local/bin/python3
+
