@@ -16,6 +16,7 @@ str2 = 'I am \"Sleny\".'
 - strip()函数可以将字符串两边的空白符去除
 - str()函数可以将数据对象字符串化
 - in操作用于检查成员关系，可以确定该成员是否在数据对象中
+- pop(index = -1)函数可以删除列表中的某个数据，默认为最后一项
 
 ---
 
@@ -34,6 +35,37 @@ lists = [A,B,C,[D,E,F,[i,j]]]
 
 - list.append("Sleny") --该方法会将数据增加至列表的末尾
 - list.insert(1, "Zl") --该方法会在Apple后增加该值
+
+### 排序
+
+- list.sort() --该方法提供原地排序，Python内置BIF中使用sorted()方法来提供复制排序，两种排序方式默认均是升序，若需要降序则需要传入参数reverse=True
+
+### 推导
+
+- 列表推导是为了减少将一个列表转换为另一个列表时所需的代码，可以将原有的四行代码缩减为一行，且不需要再单独使用append()方法
+```Python
+new_list = [sanitize(each_t) for each_t in old_list]
+# new_list:    新生成的列表
+# old_list:    原有的列表
+# each_t:      需要迭代的目标标识符
+# sanitize():  转换函数
+```
+
+---
+
+## 集合
+
+### 定义
+- 集合中的数据是无序的且不允许重复的
+
+---
+
+## 字典
+
+### 定义
+- Python内置的数据结构，使用key-value格式关联数据
+- 以{}的形式出现，或者可以使用dict()BIF创建
+- 支持动态扩展
 
 ---
 
@@ -263,8 +295,6 @@ except PickleError as pic_err:
 ```
 
 - 如果pickle保存或读取数据时出现问题，会产生一个PickleError类型的异常
-
-- 
 
 ---
 
