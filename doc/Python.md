@@ -475,6 +475,7 @@ cgitb.enable()
 ```
 
 - 可以使用cgi.FieldStorage()访问作为Web请求一部分发送给Web服务器的数据，数据作为一个Python字典
+- 数据使用pickle格式，Content-Type：设置为text/html；使用json格式，Content-Type：设置为application/json
 
 ---
 
