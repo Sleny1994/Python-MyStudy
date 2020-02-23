@@ -35,6 +35,7 @@ lists = [A,B,C,[D,E,F,[i,j]]]
 
 - list.append("Sleny") --该方法会将数据增加至列表的末尾
 - list.insert(1, "Zl") --该方法会在Apple后增加该值
+- list.extend([1,2,3]) --该方法会将新的列表扩展至原有列表中
 
 ### 排序
 
@@ -66,6 +67,13 @@ new_list = [sanitize(each_t) for each_t in old_list]
 - Python内置的数据结构，使用key-value格式关联数据
 - 以{}的形式出现，或者可以使用dict()BIF创建
 - 支持动态扩展
+```Python
+dict = {"A":1, "B":2, "C":3}
+print(dict["A"])
+
+---output---
+1
+```
 
 ---
 
@@ -397,3 +405,32 @@ except IOError as err:
 File error: [Error 2] No such file or directory: 'missing.txt'
 ```
 
+---
+
+## 类
+
+### 定义
+- 面向对象中，函数被称为是类的方法，数据则称为类的属性，实例化的数据对象称为实例
+- 使用class创建类对象，每个定义的类都有一个特殊的方法，\_\_init\_\_()，主要用于初始化对象，且该方法下不能空着否则会提示缩进错误
+```Python
+class A:
+    def __init__(self):
+        # 这里可以初始化各个对象
+    def show(self):
+        print("Hello World!")
+
+a = A() # 实例化对象
+a.show()
+```
+- 类中定义的所有方法的第一个参数均是self
+
+### 继承
+- 通过继承创建的类称为子类，可以继承新创建的类，也可以继承原有的内置类
+```Python
+class NamedList(list):
+    def __init__(self, a_name):
+        # list.__init__([]) ,添加该句代码和不添加似乎并无区别
+        self.name = a_name
+
+a_list = NamedList("Hello")
+# a_list拥有list的所有功能，且还多了name参数
