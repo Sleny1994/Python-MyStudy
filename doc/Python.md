@@ -132,8 +132,7 @@ os.path.exists() # 用于确认该路径/文件是否存在
 
 - print()，主要用于打印输出，参数添加end = ''则可以取消换行
 - locals()，会返回当前作用域中定义的所有名的一个集合
-
-
+- String模块中包含一个名为Template的类，可以用于简单的字符串替换
 
 ### 自定义函数
 
@@ -286,7 +285,11 @@ try:
 except IOError:
     print("Failed!")
 ```
-- 标准输出（standard output），即sys.stdout
+- 标准输出（standard output），即sys.stdout，print()的默认参数即为此
+- 标准错误输出(STDERR)，即sys.stderr，修改print()函数的file参数将其重定向到stderr则可打印错误输出
+
+### Pickle
+
 - pickle模块，Python专用数据存储方式，该方式必须以二进制的模式打开这些文件即wb和rb
 
 ```Python
@@ -423,6 +426,7 @@ a = A() # 实例化对象
 a.show()
 ```
 - 类中定义的所有方法的第一个参数均是self
+- @property可以在类中修饰类方法，被修饰过的类方法对于类用户来说则像是一个属性
 
 ### 继承
 - 通过继承创建的类称为子类，可以继承新创建的类，也可以继承原有的内置类
@@ -462,4 +466,34 @@ httpd.server_forever() # 启动服务器
   - 类Unix
     1. 使用chmod+x命令设置CGI的可执行权限
     2. 在程序代码的最上方添加 #! /usr/local/bin/python3
+
+- Python标准库中提供一个CGI的跟踪模块（cgitb），启用这个模块时，会在Web浏览器上显示详细的错误消息
+
+```Python
+import cgitb
+cgitb.enable()
+```
+
+- 可以使用cgi.FieldStorage()访问作为Web请求一部分发送给Web服务器的数据，数据作为一个Python字典
+
+---
+
+## JSON
+
+### 定义
+
+- 基于文本的格式，与语言无关，可使用其它编程语言编写的程序进行交互
+- 标准JSON库只能处理Python的内置类型，无法处理自定义的类对象，有时则需要将数据转化为Python的内置数据类型
+
+### 用法
+
+- Python内置有json库，直接导入即可使用其功能，使用方法与pickle类似
+
+```Python
+import json
+
+test = ['A', ['B', 'C'], 2, ['D', 'E', 'F']]
+to_json = json.dumps(test)
+to_test = json.loads(to_json)
+```
 
