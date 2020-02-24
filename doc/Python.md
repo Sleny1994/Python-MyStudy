@@ -518,3 +518,37 @@ connection.close() # 关闭与数据库的一个现有连接
 ```
 
 - ？占位符允许在Python代码中为SQL语句指定参数 
+
+---
+
+## GAE
+
+- 内置Python版本为python2，可以使用python2.7
+- 需要下载安装合适的GAE Python SDK
+- 构建GAE下的Web应用，需要三样东西：一个文件夹用于存放web应用的相关文件，执行的代码，以及一个配置文件
+- 配置文件必须命名为app.yaml，内容格式如下所示
+
+```
+application: mygaetest
+version: 1
+runtime: python
+api_version: 1
+
+hamdlers:
+- url: /.*
+  script: sayhello.py
+```
+
+- GAE SDK内包含了一个测试Web服务器，在SDK目录外运行python2 ../dev_appserver.py /mygaetest/后，即可通过浏览器访问本地Web应用，默认端口为8080，后台端口为8000
+- 同符合MVC模式，使用一个后台数据存储工具，成为datastore，建立在Google的BigTable技术基础上，该技术为数据提供了一个“noSQL”API，却又使用Google的查询语言（Google's Query Language,GQL）提供了一个类SQL的API
+- 视图使用了Django项目的模板系统，属于Python一流Web框架技术之一，以及Django的表单构建技术，Django使用{{name}}语法完成变量的替换
+- 控制器的代码则都使用Python编写，支持CGI和WSGI
+- App Engine将存储在datastore中的数据项称为属性（properties），可以将属性认为是一种定义数据库模式中的数据名和类型的方法：每个属性就像是与行中存储的数据关联的列类型，App Engine将行称为一个实体（entity）
+- datastore属性有一个特定的预声明类型，有很多类型可供选择，如下所示
+  - db.StringProperty：一个最多包含500字符的字符串
+  - db.Blob：一个字节串（二进制数据）
+  - db.DateProperty：一个日期
+  - db.TimeProperty：一个时间
+  - db.IntegerProperty：一个64位整数
+  - db.UserProperty：一个Google账户
+
