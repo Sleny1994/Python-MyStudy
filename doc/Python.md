@@ -498,3 +498,19 @@ to_json = json.dumps(test)
 to_test = json.loads(to_json)
 ```
 
+---
+
+## 数据库
+
+### SQLite3
+- Python3预装了SQLite3，一个完备、无需配置的基于SQL的数据管理系统
+- 使用SQLite3，需要导入sqlite3库
+- 实现代码
+```Python
+import sqlite3
+connection = sqlite3.connect('test.sqlite')
+cursor = connection.cursor()
+cursor.execute("""SELECT DATE('NOW')""")
+connection.commit()
+connection.close()
+```
