@@ -128,6 +128,7 @@ import os
 os.getcwd() # 可以查看当前工作目录
 os.chdir('C:\\') # 切换工作目录
 os.path.exists() # 用于确认该路径/文件是否存在
+os.environ() # 访问程序的环境设置
 ```
 
 - print()，主要用于打印输出，参数添加end = ''则可以取消换行
@@ -508,9 +509,12 @@ to_test = json.loads(to_json)
 - 实现代码
 ```Python
 import sqlite3
-connection = sqlite3.connect('test.sqlite')
-cursor = connection.cursor()
-cursor.execute("""SELECT DATE('NOW')""")
-connection.commit()
-connection.close()
+connection = sqlite3.connect('test.sqlite') # 与数据库文件建立连接
+cursor = connection.cursor() # 通过一个已有的连接与数据库通信
+cursor.execute("""SELECT DATE('NOW')""") # 通过一个已有的连接向数据库发送一个SQL查询
+connection.rollback() # 取消对数据做出的所有未完成的修改
+connection.commit() # 使之前对数据库所做的修改永久保留
+connection.close() # 关闭与数据库的一个现有连接
 ```
+
+- ？占位符允许在Python代码中为SQL语句指定参数 
