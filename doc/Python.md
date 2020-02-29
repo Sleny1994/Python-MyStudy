@@ -215,6 +215,7 @@ print_list(lists)
 - 模块就是一个包含Python代码的文本文件，以.py结尾
 - Python包索引（Python Package Index， PyPI），第三方模块聚集地
 - import sys; sys.path 可以输出一个列表，内包含了Python的安装路径以及模块存储路径
+- 第三方模块的下载使用pip ，如：pip install numpy
 
 ### 发布
 
@@ -253,6 +254,31 @@ python setup.py sdist upload
 ### 导入
 
 - 使用'import'关键字导入模块
+- 临时添加可以将模块所在路径添加至sys.path中
+
+```Python
+import sys
+sys.path.append("D:/Python-Project/lib/")
+```
+
+- 增加.pth文件（推荐），在Python安装目录下的Lib\site-packages子目录中创建一个path.pth文件，在该文件中添加要导入模块所在的目录
+- 在模块程序内添加一个if判断判断是否以主程序的形式运行，此时执行main.py则不会运行导入模块内的代码
+
+```Python
+def func:
+    return(0)
+
+if __name__ == '__main__':
+    print("Hello.")
+```
+
+### 包
+
+- 创建包即创建文件夹，但需要在文件夹内创建一个"\_\_init\_\_.py"的文件，文件内可以不写任何代码，也可以写，而在其中写入的代码在导入包的时候，会被自动执行
+- 有三种方式使用包（加载包）
+  - 通过import + 完整包名 + 模块名的形式，类似import settings.size
+  - 通过from + 完整包名 + import + 模块名，类似from settings import size
+  - 通过from + 完整包名 + 模块名 + import + 定义名，类似from settings.size import width, height或者使用*号代表所有定义名
 
 ### 命名空间
 
@@ -557,6 +583,25 @@ connection.close() # 关闭与数据库的一个现有连接
 
 - ？占位符允许在Python代码中为SQL语句指定参数 
 
+### MySQL
+
+```Python
+import pymysql
+conn = pymysql.connect(host = 'localhost',
+                       user = 'user',
+                       password = 'passwd',
+                       db = 'test',
+                       charset = 'utf8',
+                       cursorclass = pymysql.cursors.DictCursor)
+cursor = conn.cursor()
+cursor.execute("SELECT VERSION()")
+data = cursor.fetchone()
+print(data)
+conn.close()
+```
+
+
+
 ---
 
 ## GAE
@@ -589,4 +634,81 @@ hamdlers:
   - db.TimeProperty：一个时间
   - db.IntegerProperty：一个64位整数
   - db.UserProperty：一个Google账户
+
+---
+
+## 线程和进程
+
+### 定义
+
+- os.fork()、multiprocessing模块、Pool进程池都可以用于创建进程，但os.fork只适用于Unix/Linux/Mac
+- Python标准库提供了两个线程模块：_thread和threading，前者为低级模块，后者为高级模块（常用）
+
+---
+
+## 网络编程
+
+### Socket
+
+- 为了使两个程序通过网络进行通信，二者必须使用套接字，使用socket模块的socket()函数实现
+- 基础语法如下
+
+```Python
+s = socket.socket(AddressFamily, Type)
+# AddressFamily 可以选择AF_INET（用于Internet进程间的通信）或者AF_UNIX（用于同一台机器进程间通信），前者比较常用
+# Type 可以选择SOCK_STREAM（流式套接字，主要用于TCP协议）或者SOCK_DGRAM（数据报套接字，主要用于UDP协议）
+
+tcpSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TCP套接字
+udpSocl = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP套接字
+```
+
+- 创建完成后会生成一个socket对象，该对象的主要方法有如下：
+  - s.bind() 绑定(host, port)到套接字，在AF_INET下以元组(host, port)的形式表示地址
+  - s.listen() 开始TCP监听
+  - s.accept() 被动接受TCP客户端连接（阻塞式），等待连接的到来
+  - s.connect() 主动初始化TCP服务器连接，一般address的格式为元组(hostname, port)，如果连接出错，则返回socket.error错误
+  - s.recv() 接受TCP数据，数据以字符串形式返回
+  - s.send() 发送TCP数据，将string中的数据发送到连接的套接字，返回值为要发送的字节数量，该数量可能小于string的字节大小
+  - s.sendall() 完整发送TCP数据，在返回之前会尝试发送所有数据，成功返回None，失败则抛出异常
+  - s.recvfrom() 接受UDP数据，返回值为(data, address)，data为包含接收数据的字符串，address是发送数据的套接字地址
+  - s.sendto() 发送UDP数据，将数据发送到套接字，address是形式为(ipaddr, port)的元组，指定远程地址，返回值是发送的字节数
+  - s.close() 关闭套接字
+
+### TCP编程
+
+#### 服务端
+
+```Python
+# -*- coding:utf-8 -*-
+import socket
+
+host = '127.0.0.1'
+port = '8080'
+web = socket.socket()
+web.bind((host, port))
+web.listen(5) #设置最多连接数5
+print("服务器等待客户端连接...")
+
+while True:
+    conn, addr = web.accept() # 建立与客户端的连接
+    data = conn.recv(1024) # 获取客户端请求数据
+    print(data)
+    conn.sendall(b'HTTP/1.1 200 OK\r\n\r\nHello World')
+    conn.close()
+```
+
+#### 客户端
+
+```Python
+import socket
+s = socket.socket()
+host = '127.0.0.1'
+port = 8080
+s.connect((host, port))
+send_data = input('请输入要发送的数据：')
+s.send(send_data.encode())
+recvData = s.recv(1024).decode()
+print("接收到的数据为：", recvData)
+s.close() 
+```
 
