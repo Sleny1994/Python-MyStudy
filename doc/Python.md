@@ -1,19 +1,32 @@
-# Python
+---
+title: Python学习笔记
+
+tags: 
+- Python
+
+categories:
+- Python
+---
+
+# 基础
 
 ## 字符串
 
 ### 定义
 
 - 在一个字符串中嵌入一个双引号，可以使用转义符\，或者使用单引号引起这个字符串
+
 ```Python
 str1 = 'I am "Sleny".'
 str2 = 'I am \"Sleny\".'
 ```
+
 - “+”运算符可以对字符串进行拼接
 - len(string) 对字符串的长度进行计算
 - str.split(sep, maxsplit) 对字符串进行分割，sep用于指定分隔符，默认为空字符，maxsplit可选参数，用于指定分割的次数
 - str.count(sub[, start[, end]]) 检索指定字符串在另一个字符串中出现的次数，不存在返回0，存在返回出现的次数
 - str.find(sub[, start[, end]]) 检索是否包含指定的字符串，不存在返回-1，存在返回该字符串的索引
+<!-- more -->
 - str.index(sub[, start[, end]]) 类似于find方法，但其不存在时会抛出异常
 - str.startwith(prefix[, start[, end]]) 检索字符串是否以指定字符串开头，是返回True，否返回False
 - str.endwith(suffix[, start[, end]]) 检索字符串是否以指定字符串结尾，是返回True，否返回False
@@ -378,6 +391,19 @@ except PickleError as pic_err:
 
 ### 用法
 
+#### 常见异常
+- NameError 尝试访问一个没有声明的变量引发的错误
+- IndexError 索引超出序列范围引发的错误
+- IndentationError 缩进错误
+- ValueError 传入的值错误
+- KeyError 请求一个不存在的字典关键字引发的错误
+- IOError 输入输出错误
+- ImportError 当import语句无法找到模块或from无法在模块中找到相应的名称时引发的错误
+- AttributeError 尝试访问未知的对象属性引发的错误
+- TypeError 类型不合适引发的错误
+- MemoryError 内存错误
+- ZeroDivisionError 除数为0引发的错误
+
 #### 一般异常处理
 
 ```Python
@@ -506,6 +532,8 @@ a_list = NamedList("Hello")
 ```
 
 ---
+
+# 进阶
 
 ## Web开发
 
